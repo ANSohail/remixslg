@@ -65,7 +65,7 @@ const Footer = () => {
               <a href="https://www.linkedin.com/company/sohail-law-group" target="_blank" rel="noopener noreferrer" className="transition-colors hover:opacity-75" style={{ color: '#7190a6' }}>
                 <Linkedin className="h-5 w-5" />
               </a>
-              <a href="https://twitter.com/sohaillawgroup" target="_blank" rel="noopener noreferrer" className="transition-colors hover:opacity-75" style={{ color: '#7190a6' }}>
+              <a href="https://x.com/law_sohail" target="_blank" rel="noopener noreferrer" className="transition-colors hover:opacity-75" style={{ color: '#7190a6' }}>
                 <Twitter className="h-5 w-5" />
               </a>
               <a href="https://www.instagram.com/sohaillawgroup" target="_blank" rel="noopener noreferrer" className="transition-colors hover:opacity-75" style={{ color: '#7190a6' }}>
