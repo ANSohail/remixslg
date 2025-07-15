@@ -1,0 +1,19 @@
+/*
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+
+/assets/*
+  Cache-Control: public, immutable, max-age=31536000
+
+*.js
+  Content-Type: application/javascript
+
+*.mjs
+  Content-Type: application/javascript
+
+*.tsx
+  Content-Type: application/javascript
+
+*.ts
+  Content-Type: application/javascript
