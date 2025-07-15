@@ -26,7 +26,7 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
+    <TooltipProvider>
       <Toaster />
       <Sonner />
       <BrowserRouter>
@@ -36,11 +36,7 @@ const App = () => (
           <Route path="/what-we-do" element={<WhatWeDo />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-        </Routes>
-         
-        <Footer />
-      </BrowserRouter>
-          
+
           {/* Common redirects for SEO-friendly URLs */}
           <Route path="/attorneys" element={<Navigate to="/who-we-are" replace />} />
           <Route path="/lawyers" element={<Navigate to="/who-we-are" replace />} />
@@ -51,7 +47,7 @@ const App = () => (
           <Route path="/contact-us" element={<Navigate to="/contact" replace />} />
           <Route path="/home" element={<Navigate to="/" replace />} />
           <Route path="/index" element={<Navigate to="/" replace />} />
-          
+
           {/* Service pages */}
           <Route path="/services/civil-commercial-litigation" element={<CivilCommercialLitigation />} />
           <Route path="/services/real-estate-law" element={<RealEstateLaw />} />
@@ -61,7 +57,7 @@ const App = () => (
           <Route path="/services/immigration-judicial-reviews" element={<ImmigrationJudicialReviews />} />
           <Route path="/services/tort-negligence" element={<TortNegligence />} />
           <Route path="/services/family-law" element={<FamilyLaw />} />
-          
+
           {/* Service redirects for alternative URLs */}
           <Route path="/civil-litigation" element={<Navigate to="/services/civil-commercial-litigation" replace />} />
           <Route path="/commercial-litigation" element={<Navigate to="/services/civil-commercial-litigation" replace />} />
@@ -75,10 +71,12 @@ const App = () => (
           <Route path="/negligence" element={<Navigate to="/services/tort-negligence" replace />} />
           <Route path="/personal-injury" element={<Navigate to="/services/tort-negligence" replace />} />
           <Route path="/family" element={<Navigate to="/services/family-law" replace />} />
-          
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+
+          {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+
+        <Footer /> {/* ✅ Footer correctly placed here */}
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
