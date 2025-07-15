@@ -3,20 +3,20 @@
   X-XSS-Protection: 1; mode=block
   X-Content-Type-Options: nosniff
 
-/assets/*
-  Cache-Control: public, immutable, max-age=31536000
+/assets/*.css
+  Content-Type: text/css
+
+/assets/*.js
+  Content-Type: application/javascript
+
+/assets/*.mjs
+  Content-Type: application/javascript
+
+*.css
+  Content-Type: text/css
 
 *.js
   Content-Type: application/javascript
 
 *.mjs
   Content-Type: application/javascript
-
-*.tsx
-  Content-Type: application/javascript
-
-*.ts
-  Content-Type: application/javascript
-
-*.css
-  Content-Type: text/css
