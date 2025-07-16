@@ -442,7 +442,21 @@ const Contact = () => {
           </div>
         </div>
       </footer>
-    </div>
+      {/* Netlify Hidden Form for Build Detection */}
+      <form name="contact" netlify hidden>
+        <input type="text" name="firstName" />
+        <input type="text" name="lastName" />
+        <input type="email" name="email" />
+        <input type="tel" name="phone" />
+        <input type="text" name="legalServiceArea" />
+        <textarea name="problemDescription" />
+        <input type="text" name="goals" />
+        <input type="text" name="urgencyLevel" />
+        <input type="text" name="consultedBefore" />
+        <input type="text" name="contactMethod" />
+        <input type="text" name="bestTime" />
+      </form>
+    </div> 
   );
 };
 
