@@ -8,7 +8,7 @@ import PartnersSection from "@/components/who-we-are/PartnersSection";
 import AboutSection from "@/components/who-we-are/AboutSection";
 import ValuesSection from "@/components/who-we-are/ValuesSection";
 import CallToActionSection from "@/components/who-we-are/CallToActionSection";
-import Footer from "@/components/who-we-are/Footer";
+import Footer from "@/components/Footer";
 
 const WhoWeAre = () => {
   const [isVisible, setIsVisible] = useState(false);
