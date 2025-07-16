@@ -42,27 +42,6 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-
-  const form = e.target;
-  const data = new FormData(form);
-
-  fetch("/", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams(data as any).toString(),
-  })
-    .then(() => {
-      alert("Thank you for contacting us! We will get back to you soon.");
-      form.reset();
-    })
-    .catch((error) => {
-      alert("Oops! There was a problem submitting your form.");
-      console.error(error);
-    });
-};
-
   return (
     <div className="min-h-screen bg-background font-serif">
       {/* Top contact bar */}
@@ -202,15 +181,15 @@ const Contact = () => {
               method="POST"
               data-netlify="true"
               netlify-honeypot="bot-field"
-              onSubmit={handleSubmit}
+              action="/thank-you"
               className="space-y-6"
              >
-               <input type="hidden" name="form-name" value="contact" />
-               <p hidden>
-              <label>
-               Don’t fill this out: <input name="bot-field" />
+              <input type="hidden" name="form-name" value="contact" />
+              <p hidden>
+               <label>
+                Don’t fill this out: <input name="bot-field" />
                </label>
-             </p>
+              </p>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <Label htmlFor="firstName">First Name *</Label>
@@ -295,7 +274,7 @@ const Contact = () => {
                     rows={4}
                     value={formData.problemDescription}
                     onChange={handleInputChange}
-                    placeholder="Please describe your legal issue in detail. Include relevant dates, parties involved, and any actions taken so far."
+                    placeholder="Please briefly describe your legal issue. DO NOT INCLUDE CONFIDENTIAL INFORMATION."
                     className="mt-1"
                   />
                 </div>
@@ -344,6 +323,10 @@ const Contact = () => {
                     </SelectContent>
                   </Select>
                 </div>
+               <input type="hidden" name="legalServiceArea" value={formData.legalServiceArea} />
+               <input type="hidden" name="urgencyLevel" value={formData.urgencyLevel} />
+               <input type="hidden" name="contactMethod" value={formData.contactMethod} />
+              <input type="hidden" name="bestTime" value={formData.bestTime} />
 
                 <Button type="submit" size="lg" className="bg-theme-blue hover:bg-theme-blue/90 text-white w-full">
                   Submit Consultation Request
