@@ -42,10 +42,26 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-  };
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  const form = e.target;
+  const data = new FormData(form);
+
+  fetch("/", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams(data as any).toString(),
+  })
+    .then(() => {
+      alert("Thank you for contacting us! We will get back to you soon.");
+      form.reset();
+    })
+    .catch((error) => {
+      alert("Oops! There was a problem submitting your form.");
+      console.error(error);
+    });
+};
 
   return (
     <div className="min-h-screen bg-background font-serif">
@@ -186,10 +202,15 @@ const Contact = () => {
               method="POST"
               data-netlify="true"
               netlify-honeypot="bot-field"
+              onSubmit={handleSubmit}
               className="space-y-6"
              >
                <input type="hidden" name="form-name" value="contact" />
-               <input type="hidden" name="bot-field" />
+               <p hidden>
+              <label>
+               Don’t fill this out: <input name="bot-field" />
+               </label>
+             </p>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <Label htmlFor="firstName">First Name *</Label>
