@@ -190,11 +190,7 @@ const Contact = () => {
               className="space-y-6"
              >
                <input type="hidden" name="form-name" value="contact" />
-               <p hidden>
-                <label>
-                  Don’t fill this out: <input name="bot-field" />
-                </label>
-             </p>
+               <input type="hidden" name="bot-field" />
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <Label htmlFor="firstName">First Name *</Label>
