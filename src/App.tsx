@@ -1,4 +1,5 @@
 
+import ThankYou from "./pages/ThankYou";
 import Footer from "./components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/what-we-do" element={<WhatWeDo />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/thank-you" element={<ThankYou />} />
 
           {/* Common redirects for SEO-friendly URLs */}
           <Route path="/attorneys" element={<Navigate to="/who-we-are" replace />} />
