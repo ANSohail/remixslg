@@ -1,0 +1,9 @@
+# Query: who-we-are/Footer
+# ContextLines: 1
+
+1 result - 1 file
+
+src/pages/WhoWeAre.tsx:
+  10  import CallToActionSection from "@/components/who-we-are/CallToActionSection";
+  11: 
+  12  
