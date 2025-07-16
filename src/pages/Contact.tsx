@@ -181,7 +181,20 @@ const Contact = () => {
               <CardTitle className="text-2xl text-gray-800 mb-6">Consultation Request Form</CardTitle>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
+             <form
+              name="contact"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              onSubmit={handleSubmit}
+              className="space-y-6"
+             >
+               <input type="hidden" name="form-name" value="contact" />
+               <p hidden>
+                <label>
+                  Don’t fill this out: <input name="bot-field" />
+                </label>
+             </p>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <Label htmlFor="firstName">First Name *</Label>
