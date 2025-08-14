@@ -7,8 +7,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Scale, Phone, Mail, MapPin, Clock, ArrowRight, Linkedin, Twitter, Instagram, Video } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 const Contact = () => {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -40,6 +43,56 @@ const Contact = () => {
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/send-contact-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        toast({
+          title: "Success!",
+          description: "Your message has been sent. We'll get back to you within 24 hours.",
+        });
+        
+        // Reset form
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          legalServiceArea: '',
+          problemDescription: '',
+          goals: '',
+          urgencyLevel: '',
+          consultedBefore: '',
+          contactMethod: '',
+          bestTime: ''
+        });
+      } else {
+        throw new Error(result.error || 'Failed to send message');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Error",
+        description: "Failed to send your message. Please try again or call us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -248,10 +301,10 @@ const Contact = () => {
 
                 <div>
                   <Label htmlFor="legalServiceArea">Legal Service Area *</Label>
-                  <Select onValueChange={(value) => handleSelectChange('legalServiceArea', value)}>
-                    <SelectTrigger className="mt-1">
-                      <SelectValue placeholder="Select the area of law" />
-                    </SelectTrigger>
+                   <Select onValueChange={(value) => handleSelectChange('legalServiceArea', value)} value={formData.legalServiceArea}>
+                     <SelectTrigger className="mt-1">
+                       <SelectValue placeholder="Select the area of law" />
+                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="civil-litigation">Civil/Commercial Litigation</SelectItem>
                       <SelectItem value="real-estate">Real Estate Law</SelectItem>
@@ -282,10 +335,10 @@ const Contact = () => {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <Label htmlFor="urgencyLevel">Urgency Level *</Label>
-                    <Select onValueChange={(value) => handleSelectChange('urgencyLevel', value)}>
-                      <SelectTrigger className="mt-1">
-                        <SelectValue placeholder="How urgent is your matter?" />
-                      </SelectTrigger>
+                     <Select onValueChange={(value) => handleSelectChange('urgencyLevel', value)} value={formData.urgencyLevel}>
+                       <SelectTrigger className="mt-1">
+                         <SelectValue placeholder="How urgent is your matter?" />
+                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="immediate">Immediate (within 24 hours)</SelectItem>
                         <SelectItem value="urgent">Urgent (within 1 week)</SelectItem>
@@ -296,10 +349,10 @@ const Contact = () => {
                   </div>
                   <div>
                     <Label htmlFor="contactMethod">Preferred Contact Method *</Label>
-                    <Select onValueChange={(value) => handleSelectChange('contactMethod', value)}>
-                      <SelectTrigger className="mt-1">
-                        <SelectValue placeholder="How should we contact you?" />
-                      </SelectTrigger>
+                     <Select onValueChange={(value) => handleSelectChange('contactMethod', value)} value={formData.contactMethod}>
+                       <SelectTrigger className="mt-1">
+                         <SelectValue placeholder="How should we contact you?" />
+                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="phone">Phone</SelectItem>
                         <SelectItem value="email">Email</SelectItem>
@@ -311,10 +364,10 @@ const Contact = () => {
 
                 <div>
                   <Label htmlFor="bestTime">Best Time to Contact</Label>
-                  <Select onValueChange={(value) => handleSelectChange('bestTime', value)}>
-                    <SelectTrigger className="mt-1">
-                      <SelectValue placeholder="When is the best time to reach you?" />
-                    </SelectTrigger>
+                   <Select onValueChange={(value) => handleSelectChange('bestTime', value)} value={formData.bestTime}>
+                     <SelectTrigger className="mt-1">
+                       <SelectValue placeholder="When is the best time to reach you?" />
+                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="morning">Morning (9 AM - 12 PM)</SelectItem>
                       <SelectItem value="afternoon">Afternoon (12 PM - 5 PM)</SelectItem>
@@ -323,15 +376,15 @@ const Contact = () => {
                     </SelectContent>
                   </Select>
                 </div>
-               <input type="hidden" name="legalServiceArea" value={formData.legalServiceArea} />
-               <input type="hidden" name="urgencyLevel" value={formData.urgencyLevel} />
-               <input type="hidden" name="contactMethod" value={formData.contactMethod} />
-              <input type="hidden" name="bestTime" value={formData.bestTime} />
-
-                <Button type="submit" size="lg" className="bg-theme-blue hover:bg-theme-blue/90 text-white w-full">
-                  Submit Consultation Request
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+                 <Button 
+                   type="submit" 
+                   size="lg" 
+                   className="bg-theme-blue hover:bg-theme-blue/90 text-white w-full"
+                   disabled={isSubmitting}
+                 >
+                   {isSubmitting ? 'Sending...' : 'Submit Consultation Request'}
+                   <ArrowRight className="ml-2 h-5 w-5" />
+                 </Button>
               </form>
             </CardContent>
           </Card>
