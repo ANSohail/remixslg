@@ -50,7 +50,7 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/send-contact-email', {
+      const response = await fetch('/functions/v1/send-contact-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -230,14 +230,10 @@ const Contact = () => {
             </CardHeader>
             <CardContent>
              <form
-              name="contact"
-              method="POST"
-              data-netlify="true"
-              netlify-honeypot="bot-field"
-              action="/thank-you"
+               onSubmit={handleSubmit}
               className="space-y-6"
              >
-              <input type="hidden" name="form-name" value="contact" />
+              
               <p hidden>
                <label>
                 Don’t fill this out: <input name="bot-field" />
@@ -478,20 +474,6 @@ const Contact = () => {
           </div>
         </div>
       </footer>
-      {/* Netlify Hidden Form for Build Detection */}
-      <form name="contact" netlify hidden>
-        <input type="text" name="firstName" />
-        <input type="text" name="lastName" />
-        <input type="email" name="email" />
-        <input type="tel" name="phone" />
-        <input type="text" name="legalServiceArea" />
-        <textarea name="problemDescription" />
-        <input type="text" name="goals" />
-        <input type="text" name="urgencyLevel" />
-        <input type="text" name="consultedBefore" />
-        <input type="text" name="contactMethod" />
-        <input type="text" name="bestTime" />
-      </form>
     </div> 
   );
 };
